@@ -73,6 +73,19 @@ export const allPostsQuery = defineQuery(`
   }
 `)
 
+export const latestPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc)[0...3] {
+    _id,
+    "title": coalesce(title, "Untitled"),
+    "slug": slug.current,
+    coverImage,
+    difficulty,
+    category,
+    "date": coalesce(date, _updatedAt),
+    content
+  }
+`)
+
 export const morePostsQuery = defineQuery(`
   *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
     ${postFields}

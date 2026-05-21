@@ -222,7 +222,7 @@ export default function HeroExperience() {
         .avax-hero-panel {
           animation: snwc-hero-panel-in var(--snwc-hero-enter-duration) var(--avax-ease-in-out-quart) both !important;
           background: linear-gradient(145deg, rgba(11, 12, 14, 0.98), rgba(7, 8, 10, 0.99)) !important;
-          border-color: rgba(255, 255, 255, 0.12) !important;
+          border: none !important;
           color: #ffffff !important;
         }
 
@@ -243,15 +243,12 @@ export default function HeroExperience() {
         .avax-hero-feature {
           --clip-top: 100%;
           --panel-y: 72px;
-          animation-delay: calc(var(--snwc-hero-enter-delay) + 1s) !important;
+          animation-delay: calc(var(--snwc-hero-enter-delay) + 0.28s) !important;
           border-radius: 24px !important;
         }
 
         .avax-hero-stage {
           animation: none !important;
-          background:
-            radial-gradient(62% 28% at 50% 69%, rgba(132, 142, 255, 0.08), transparent 76%),
-            linear-gradient(180deg, #050505 0%, #030303 100%) !important;
           border-radius: 28px 28px 32px 32px !important;
           isolation: isolate;
           overflow: hidden !important;
@@ -378,71 +375,12 @@ export default function HeroExperience() {
 
       <div className="avax-hero-shell">
         <div className="avax-hero-panel avax-hero-copy">
-          <div className="max-w-[390px]">
-            <p className="mb-7 font-[family-name:var(--font-ibm-plex-mono)] text-[11px] uppercase tracking-[0.2em] text-white/38">
-              SNWC / TECH MADE CLEAR
-            </p>
-            <h1 className="font-[family-name:var(--font-inter-tight)] text-[24px] font-medium leading-[1.12] tracking-normal text-white max-[767px]:text-[21px]">
-              Nowoczesna technologia nie musi być trudna
-            </h1>
-            <p className="mt-5 font-[family-name:var(--font-inter-tight)] text-[16px] font-light leading-[1.42] text-white/60">
-              {heroDescription}
-            </p>
-          </div>
         </div>
 
         <div className="avax-hero-panel avax-hero-feature">
-          <div className="avax-feature-media">
-            <div className="avax-network-orbit">
-              {statusItems.map((item, index) => (
-                <span key={item} style={{'--node': index} as CSSProperties}>
-                  {item}
-                </span>
-              ))}
-            </div>
-            <Image
-              alt=""
-              className="h-auto w-[84px] opacity-95"
-              height={80}
-              src="/images/wwwow-light.png"
-              style={{height: 'auto'}}
-              width={160}
-            />
-          </div>
-          <div className="avax-feature-body">
-            <h2 className="font-[family-name:var(--font-inter-tight)] text-[18px] font-semibold uppercase leading-none tracking-normal text-white">
-              Powered by SNWC
-            </h2>
-            <p className="mt-3 max-w-[350px] font-[family-name:var(--font-inter-tight)] text-[17px] font-normal leading-[1.28] text-white/68">
-              {heroDescription}
-            </p>
-          </div>
         </div>
 
         <div className="avax-hero-panel avax-hero-stage">
-          <div aria-hidden className="avax-mvn-bg">
-            {mvnLights.map((light) => (
-              <span
-                key={`${light.x}-${light.height}`}
-                style={
-                  {
-                    '--d': light.delay,
-                    '--dur': light.duration,
-                    '--h': light.height,
-                    '--o': light.opacity,
-                    '--x': light.x,
-                  } as CSSProperties
-                }
-              />
-            ))}
-          </div>
-
-          <div aria-hidden className="avax-stage-grid">
-            <span className="is-one" />
-            <span className="is-two" />
-            <span className="is-three" />
-            <span className="is-four" />
-          </div>
 
           <div className="avax-stage-control" aria-hidden>
             <span />
@@ -472,31 +410,6 @@ export default function HeroExperience() {
         </div>
 
         <div className="avax-hero-panel avax-hero-meta">
-          <div className="avax-mini-mark">
-            <Image
-              alt=""
-              className="h-auto w-[42px]"
-              height={42}
-              src="/images/wwwow-light.png"
-              style={{height: 'auto'}}
-              width={82}
-            />
-          </div>
-          <div className="mt-11">
-            <div className="font-[family-name:var(--font-inter-tight)] text-[30px] font-normal leading-none text-white">
-              SNWC
-            </div>
-            <p className="mt-2 font-[family-name:var(--font-inter-tight)] text-[16px] font-light text-white/42">
-              Thursday, May 14, 2026
-            </p>
-          </div>
-          <div className="avax-scroll-cue">
-            <div>
-              <strong>SCROLL</strong>
-              <span>to explore page</span>
-            </div>
-            <ArrowDownRight className="h-[92px] w-[92px]" strokeWidth={0.9} />
-          </div>
         </div>
       </div>
     </section>

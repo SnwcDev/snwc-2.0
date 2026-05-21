@@ -3,6 +3,11 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  html,
+  body {
+    font-family: var(--font-inter-tight), sans-serif;
+  }
+
   h1,
   h2,
   h3,
@@ -10,6 +15,7 @@
   h5,
   h6 {
     @apply font-medium tracking-tight;
+    font-family: var(--font-inter-tight), sans-serif;
   }
 }
 
@@ -466,18 +472,6 @@
   .titan-hover-text[data-titan-roll='true'] {
     font-kerning: none;
     font-variant-numeric: tabular-nums;
-  }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    a:not([class*='rounded']):not([class*='bg-']):is(:hover, :focus-visible) .titan-hover-text,
-    a:not(:has(img)):not(:has(.titan-hover-text)):is(:hover, :focus-visible) {
-      animation: titan-link-blink-in 0.32s var(--link-hover-ease) both;
-    }
-
-    a[class*='rounded']:is(:hover, :focus-visible),
-    a[class*='bg-']:is(:hover, :focus-visible) {
-      animation: titan-link-button-blink-in 0.32s var(--link-hover-ease) both;
-    }
   }
 }
 
@@ -1302,6 +1296,9 @@ button:hover .decode-text .decode-cursor,
 
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+
+  --font-sans: var(--font-inter-tight), sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
 
   --color-framework: #000;
   --color-black: #0b0b0b;
