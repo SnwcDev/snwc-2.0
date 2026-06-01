@@ -3,11 +3,6 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
-  html,
-  body {
-    font-family: var(--font-inter-tight), sans-serif;
-  }
-
   h1,
   h2,
   h3,
@@ -15,7 +10,6 @@
   h5,
   h6 {
     @apply font-medium tracking-tight;
-    font-family: var(--font-inter-tight), sans-serif;
   }
 }
 
@@ -70,6 +64,85 @@
   }
 }
 
+@keyframes avax-intro-logo-scale {
+  from {
+    transform: translate(-50%, -50%) scale(0.156);
+  }
+
+  to {
+    transform: translate(-50%, calc(-50% + 18px)) scale(1);
+  }
+}
+
+@keyframes avax-intro-logo-flicker {
+  0%,
+  12% {
+    filter: brightness(0.08);
+    opacity: 0;
+  }
+
+  15% {
+    filter: brightness(1.1);
+    opacity: 1;
+  }
+
+  18% {
+    opacity: 0.13;
+  }
+
+  23% {
+    filter: brightness(0.72);
+    opacity: 0.56;
+  }
+
+  31% {
+    filter: brightness(1.25);
+    opacity: 1;
+  }
+
+  36% {
+    opacity: 0.27;
+  }
+
+  44% {
+    opacity: 1;
+  }
+
+  52% {
+    filter: brightness(0.52);
+    opacity: 0.44;
+  }
+
+  61% {
+    filter: brightness(1.35);
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 0.72;
+  }
+
+  84%,
+  100% {
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+@keyframes avax-logo-mask-in {
+  0% {
+    filter: saturate(0.65) brightness(0.75);
+    opacity: 0;
+    transform: scale(0.985);
+  }
+
+  100% {
+    filter: saturate(1) brightness(1);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes avax-logo-flicker {
   0%,
   48% {
@@ -105,6 +178,23 @@
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes avax-video-life {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(12deg);
+  }
+
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
   }
 }
 
@@ -459,10 +549,9 @@
     --avax-ease-out-cubic: cubic-bezier(0.2, 0.6, 0.35, 1);
     --avax-ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
     --snwc-hero-flicker-delay: 0.32s;
-    --snwc-hero-flicker-duration: 0.96s;
-    --snwc-hero-enter-delay: 1.38s;
+    --snwc-hero-flicker-duration: 0.82s;
+    --snwc-hero-enter-delay: 1.14s;
     --snwc-hero-enter-duration: 2s;
-    --snwc-logo-intro-y: calc(47svh + 34px);
   }
 
   a {
@@ -472,6 +561,18 @@
   .titan-hover-text[data-titan-roll='true'] {
     font-kerning: none;
     font-variant-numeric: tabular-nums;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    a:not([class*='rounded']):not([class*='bg-']):is(:hover, :focus-visible) .titan-hover-text,
+    a:not(:has(img)):not(:has(.titan-hover-text)):is(:hover, :focus-visible) {
+      animation: titan-link-blink-in 0.32s var(--link-hover-ease) both;
+    }
+
+    a[class*='rounded']:is(:hover, :focus-visible),
+    a[class*='bg-']:is(:hover, :focus-visible) {
+      animation: titan-link-button-blink-in 0.32s var(--link-hover-ease) both;
+    }
   }
 }
 
@@ -579,16 +680,19 @@
 }
 
 .avax-intro-logo-wrap {
+  animation: avax-intro-logo-scale var(--snwc-hero-enter-duration) var(--avax-ease-in-out-quart) var(--snwc-hero-enter-delay) both;
   left: 50%;
   position: absolute;
-  top: var(--snwc-logo-intro-y);
-  transform: translate(-50%, -50%);
-  width: min(52.2vw, 522px);
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.156);
+  width: min(58vw, 580px);
   z-index: 2;
 }
 
 .avax-intro-logo-flicker-layer {
+  animation: avax-intro-logo-flicker var(--snwc-hero-flicker-duration) steps(1, end) var(--snwc-hero-flicker-delay) both;
   filter: brightness(1);
+  opacity: 0;
   will-change: filter, opacity;
 }
 
@@ -848,29 +952,46 @@
 }
 
 .avax-logo-hero {
-  aspect-ratio: 794 / 423;
+  aspect-ratio: 820 / 420;
   left: 50%;
-  max-width: 522px;
+  max-width: 580px;
   position: absolute;
   top: 47%;
   transform: translate(-50%, -50%);
-  width: min(52.2vw, 522px);
+  width: min(58vw, 66%);
   z-index: 3;
 }
 
-.avax-logo-live {
-  align-items: center;
-  display: grid;
+.avax-logo-mask {
+  animation: avax-logo-mask-in 0.7s var(--avax-ease-out-quart) calc(var(--snwc-hero-enter-delay) + 1.42s) both;
+  background: rgba(255, 255, 255, 0.1);
   inset: 0;
-  justify-items: center;
+  -webkit-mask-image: url('/images/wwwow-light.png');
+  mask-image: url('/images/wwwow-light.png');
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  overflow: hidden;
   position: absolute;
 }
 
-.avax-logo-image {
-  display: block;
-  grid-area: 1 / 1;
-  height: auto;
-  width: 100%;
+.avax-logo-video-placeholder {
+  animation: avax-video-life 8s ease-in-out infinite;
+  background:
+    radial-gradient(circle at 46% 45%, rgba(255, 255, 255, 0.94), transparent 4%),
+    radial-gradient(circle at 52% 54%, rgba(255, 255, 255, 0.72), transparent 7%),
+    linear-gradient(112deg, rgba(245, 247, 247, 0.96), rgba(190, 208, 219, 0.94) 28%, rgba(69, 83, 96, 0.92) 49%, rgba(21, 22, 24, 0.96) 50%, rgba(165, 191, 215, 0.98) 78%, rgba(245, 247, 247, 0.98)),
+    repeating-linear-gradient(120deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 5px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    240% 240%,
+    100% 100%;
+  inset: -8%;
+  position: absolute;
 }
 
 .avax-cargo {
@@ -984,10 +1105,6 @@
 }
 
 @media (max-width: 900px) {
-  :root {
-    --snwc-logo-intro-y: 328px;
-  }
-
   .avax-hero-shell {
     display: flex;
     flex-direction: column;
@@ -1008,11 +1125,7 @@
 
   .avax-logo-hero {
     top: 35%;
-    width: min(73.8vw, 504px);
-  }
-
-  .avax-intro-logo-wrap {
-    width: min(73.8vw, 504px);
+    width: min(82vw, 560px);
   }
 
   .avax-mode-switch {
@@ -1021,10 +1134,6 @@
 }
 
 @media (max-width: 640px) {
-  :root {
-    --snwc-logo-intro-y: 279px;
-  }
-
   .avax-hero-shell {
     padding: 0;
   }
@@ -1036,11 +1145,7 @@
 
   .avax-logo-hero {
     top: 31%;
-    width: min(82.8vw, 378px);
-  }
-
-  .avax-intro-logo-wrap {
-    width: min(82.8vw, 378px);
+    width: min(92vw, 420px);
   }
 
   .avax-hero-main-copy {
@@ -1296,9 +1401,6 @@ button:hover .decode-text .decode-cursor,
 
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
-
-  --font-sans: var(--font-inter-tight), sans-serif;
-  --font-mono: var(--font-ibm-plex-mono), monospace;
 
   --color-framework: #000;
   --color-black: #0b0b0b;

@@ -9,7 +9,6 @@ import {VisualEditing} from 'next-sanity/visual-editing'
 import {Toaster} from 'sonner'
 
 import DraftModeToast from '@/app/components/DraftModeToast'
-import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
 import * as demo from '@/sanity/lib/demo'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
@@ -93,7 +92,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           {hasSanityLiveConfig && <SanityLive onError={handleError} />}
           <Header />
           <main className="">{children}</main>
-          <Footer />
         </section>
         <SpeedInsights />
       </body>
