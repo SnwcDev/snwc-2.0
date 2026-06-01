@@ -5,10 +5,23 @@ export default function HeroExperience() {
     <section className="avax-hero relative isolate overflow-hidden rounded-b-[32px] bg-[#171a1d] px-0 text-white">
       <style>{`
         :root {
-          --snwc-hero-flicker-delay: 0.32s;
-          --snwc-hero-flicker-duration: 0.82s;
+          --snwc-hero-logo-reveal-delay: 0.56s;
+          --snwc-hero-logo-reveal-duration: 1s;
           --snwc-hero-enter-delay: 1.14s;
           --snwc-hero-enter-duration: 2s;
+          --snwc-hero-nav-gap: 4px;
+          --snwc-hero-nav-height: 86px;
+          --snwc-hero-nav-shell-height: 82px;
+        }
+
+        @keyframes snwc-hero-nav-in {
+          0% {
+            transform: translate3d(0, -112%, 0);
+          }
+
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
         }
 
         @keyframes snwc-hero-panel-in {
@@ -25,6 +38,18 @@ export default function HeroExperience() {
           }
         }
 
+        @keyframes snwc-hero-left-stack-split {
+          0% {
+            gap: 0;
+            grid-template-rows: 1fr 0fr;
+          }
+
+          100% {
+            gap: 4px;
+            grid-template-rows: 1fr 0.8fr;
+          }
+        }
+
         @keyframes snwc-hero-intro-surface {
           0% {
             clip-path: inset(0 0 0 0 round 32px);
@@ -33,13 +58,13 @@ export default function HeroExperience() {
           }
 
           96% {
-            clip-path: inset(62px 24.75% 1px 24.75% round 28px);
+            clip-path: inset(calc(var(--snwc-hero-nav-height) + var(--snwc-hero-nav-gap)) 24.75% 1px 24.75% round 28px);
             opacity: 1;
             visibility: visible;
           }
 
           100% {
-            clip-path: inset(62px 24.75% 1px 24.75% round 28px);
+            clip-path: inset(calc(var(--snwc-hero-nav-height) + var(--snwc-hero-nav-gap)) 24.75% 1px 24.75% round 28px);
             opacity: 0;
             visibility: hidden;
           }
@@ -47,7 +72,7 @@ export default function HeroExperience() {
 
         @keyframes snwc-hero-logo-scale {
           from {
-            transform: translate(-50%, -50%) scale(0.156);
+            transform: translate(-50%, -50%) scale(0.12);
           }
 
           to {
@@ -56,54 +81,16 @@ export default function HeroExperience() {
         }
 
         @keyframes snwc-hero-logo-flicker {
-          0%,
-          12% {
-            filter: brightness(0.08);
+          0% {
+            filter: brightness(0.65);
             opacity: 0;
           }
 
-          15% {
-            filter: brightness(1.1);
-            opacity: 1;
+          34% {
+            filter: brightness(1.18);
+            opacity: 0.28;
           }
 
-          18% {
-            opacity: 0.13;
-          }
-
-          23% {
-            filter: brightness(0.72);
-            opacity: 0.56;
-          }
-
-          31% {
-            filter: brightness(1.25);
-            opacity: 1;
-          }
-
-          36% {
-            opacity: 0.27;
-          }
-
-          44% {
-            opacity: 1;
-          }
-
-          52% {
-            filter: brightness(0.52);
-            opacity: 0.44;
-          }
-
-          61% {
-            filter: brightness(1.35);
-            opacity: 1;
-          }
-
-          72% {
-            opacity: 0.72;
-          }
-
-          84%,
           100% {
             filter: brightness(1);
             opacity: 1;
@@ -129,14 +116,14 @@ export default function HeroExperience() {
           background: #171a1d !important;
           color: #ffffff !important;
           display: flex !important;
-          height: 58px !important;
+          height: var(--snwc-hero-nav-height) !important;
           justify-content: center !important;
-          padding: 4px 4px 0 !important;
+          padding: var(--snwc-hero-nav-gap) var(--snwc-hero-nav-gap) 0 !important;
         }
 
         .avax-nav-shell {
           display: block !important;
-          height: 54px !important;
+          height: var(--snwc-hero-nav-shell-height) !important;
           max-width: none !important;
           padding: 0 !important;
           width: 100% !important;
@@ -144,9 +131,8 @@ export default function HeroExperience() {
 
         .avax-nav-bar {
           --clip-bottom: 100%;
-          --panel-y: -42px;
           align-items: center !important;
-          animation: snwc-hero-panel-in var(--snwc-hero-enter-duration) var(--avax-ease-in-out-quart) var(--snwc-hero-enter-delay) both !important;
+          animation: snwc-hero-nav-in var(--snwc-hero-enter-duration) var(--avax-ease-in-out-quart) var(--snwc-hero-enter-delay) both !important;
           background: #090a0c !important;
           border: 1px solid rgba(255, 255, 255, 0.12) !important;
           border-radius: 14px !important;
@@ -181,7 +167,7 @@ export default function HeroExperience() {
         .avax-hero {
           background: #171a1d !important;
           color: #ffffff !important;
-          min-height: calc(100svh - 58px) !important;
+          min-height: calc(100svh - var(--snwc-hero-nav-height)) !important;
         }
 
         .avax-intro-surface {
@@ -195,13 +181,13 @@ export default function HeroExperience() {
           left: 50% !important;
           position: absolute !important;
           top: 50% !important;
-          transform: translate(-50%, -50%) scale(0.156);
+          transform: translate(-50%, -50%) scale(0.12);
           width: min(58vw, 580px) !important;
           z-index: 2 !important;
         }
 
         .avax-intro-logo-flicker-layer {
-          animation: snwc-hero-logo-flicker var(--snwc-hero-flicker-duration) steps(1, end) var(--snwc-hero-flicker-delay) both !important;
+          animation: snwc-hero-logo-flicker var(--snwc-hero-logo-reveal-duration) var(--avax-ease-out-quart) var(--snwc-hero-logo-reveal-delay) both !important;
           filter: brightness(1);
           opacity: 0;
           will-change: filter, opacity;
@@ -217,8 +203,23 @@ export default function HeroExperience() {
 
         .avax-hero-shell {
           gap: 4px !important;
-          min-height: calc(100svh - 58px) !important;
+          min-height: calc(100svh - var(--snwc-hero-nav-height)) !important;
           padding: 4px !important;
+        }
+
+        .avax-hero-left {
+          animation: snwc-hero-left-stack-split var(--snwc-hero-enter-duration) var(--avax-ease-in-out-quart) calc(var(--snwc-hero-enter-delay) + 1s) both !important;
+          display: grid !important;
+          gap: 0;
+          grid-column: 1 !important;
+          grid-row: 1 / span 2 !important;
+          grid-template-rows: 1fr 0fr;
+          min-height: 0;
+          min-width: 0;
+        }
+
+        .avax-hero-left > .avax-hero-panel {
+          min-height: 0 !important;
         }
 
         .avax-hero-panel {
@@ -274,8 +275,10 @@ export default function HeroExperience() {
       <div aria-hidden className="avax-hero-noise" />
 
       <div className="avax-hero-shell">
-        <div className="avax-hero-panel avax-hero-copy" />
-        <div className="avax-hero-panel avax-hero-feature" />
+        <div className="avax-hero-left">
+          <div className="avax-hero-panel avax-hero-copy" />
+          <div className="avax-hero-panel avax-hero-feature" />
+        </div>
         <div className="avax-hero-panel avax-hero-stage" />
         <div className="avax-hero-panel avax-hero-meta" />
       </div>
